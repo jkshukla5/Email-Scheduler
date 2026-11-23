@@ -4,6 +4,8 @@ import { randomUUID } from "crypto";
 import { config } from "./config";
 import { emailQueue } from "./queue";
 import { pool } from "./db";
+import path from "path";
+
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const STATUSES = ["scheduled", "sending", "sent", "failed"];
@@ -92,5 +94,12 @@ export function createServer() {
   });
 
   app.get("/api/health", (_req, res) => res.json({ ok: true }));
+    // Serve the built React dashboard (production)
+  const dist = path.join(__dirname, "../frontend/dist");
+  app.use(express.static(dist));
+  app.get("*", (req, res) => {
+    if (req.path.startsWith("/api")) return res.status(404).json({ error: "Not found" });
+    res.sendFile(path.join(dist, "index.html"));
+  });
   return app;
 }
