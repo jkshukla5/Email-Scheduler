@@ -4,6 +4,10 @@
 
 Demo video: https://drive.google.com/file/d/1Rj2CjhHEA4-uOo9qUUmkvO0Q8apZ8OmZ/view?usp=sharing
 
+Live demo: https://email-scheduler-mfe9.onrender.com
+
+Note: Render's free plan blocks outbound SMTP, so email sending is shown in the demo video (local run).
+
 
 A production-style email scheduler. Emails are scheduled through an API, stored as
 delayed BullMQ jobs in Redis (no cron jobs), and sent through Ethereal fake SMTP.
